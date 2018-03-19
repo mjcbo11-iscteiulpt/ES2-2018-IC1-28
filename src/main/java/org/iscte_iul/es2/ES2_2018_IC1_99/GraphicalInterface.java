@@ -34,7 +34,29 @@ public class GraphicalInterface {
 	protected JPanel TimeAndVariablesPanel;	
 	protected JPanel XMLPanel;	
 	
+	protected JLabel ProblemTitleLabel ;
+	protected JTextField ProblemTitle ;
+	
+	protected JLabel ProblemDescriptionLabel ;
+	protected JTextField ProblemDescription ;	
+	
+	protected JLabel UserEmailLabel;
+	protected JTextField UserEmail ;
+	protected JLabel UserPassLabel;
+	protected JTextField UserPass ;
+	
+	
+	
+	
 
+	
+
+	
+	//Mail criado para fins de teste
+	protected String adminMail="usertestees@gmail.com";
+	protected String adminPassword="passwordteste";
+	protected String userMail="usertestees2@gmail.com";
+	protected String userPassword="passwordteste";
 	
 	
 
@@ -77,7 +99,10 @@ public class GraphicalInterface {
 
 
 	private void CreateTextFields() {
-		
+		ProblemTitle = new JTextField();
+		ProblemDescription = new JTextField();
+		UserEmail = new JTextField();
+		UserPass=new JTextField();
 	
 	}
 	private void CreateButtons() {
@@ -85,12 +110,27 @@ public class GraphicalInterface {
 	}
 
 	private void CreateLabels() {
+		ProblemTitleLabel = new JLabel("Problem Title", SwingConstants.CENTER);
+		ProblemDescriptionLabel = new JLabel("Problem Description", SwingConstants.CENTER);
+		UserEmailLabel = new JLabel("User Email", SwingConstants.CENTER);
+		UserPassLabel = new JLabel("User Password", SwingConstants.CENTER);
 		
 
 	}
 
 	
 	private void addStuff() {
+		LeftPanel.add(ProblemTitleLabel);
+		LeftPanel.add(ProblemTitle);
+		
+		LeftPanel.add(ProblemDescriptionLabel);
+		LeftPanel.add(ProblemDescription);
+		
+		LeftPanel.add(UserEmailLabel);
+		LeftPanel.add(UserEmail);
+		LeftPanel.add(UserPassLabel);
+		LeftPanel.add(UserPass);
+		
 		
 		
 		LeftPanel.add(TimeAndVariablesPanel);
