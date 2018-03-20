@@ -22,5 +22,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Bienti/MAVEN/ES2-2018-IC1-28/javax.mail.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

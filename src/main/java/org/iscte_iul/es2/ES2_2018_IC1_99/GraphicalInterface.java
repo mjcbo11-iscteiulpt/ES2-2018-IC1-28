@@ -8,7 +8,13 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Properties;
 
-
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -45,6 +51,7 @@ public class GraphicalInterface {
 	protected JLabel UserPassLabel;
 	protected JTextField UserPass ;
 	
+	protected JButton SendEmail ;
 	
 	
 	
@@ -63,6 +70,7 @@ public class GraphicalInterface {
 	
 	public GraphicalInterface() {
 		CreateInterface();
+		OpenListeners();
 		
 	}
 
@@ -106,6 +114,7 @@ public class GraphicalInterface {
 	
 	}
 	private void CreateButtons() {
+		SendEmail = new JButton("Send Email");		
 		
 	}
 
@@ -131,6 +140,7 @@ public class GraphicalInterface {
 		LeftPanel.add(UserPassLabel);
 		LeftPanel.add(UserPass);
 		
+		LeftPanel.add(SendEmail);
 		
 		
 		LeftPanel.add(TimeAndVariablesPanel);
@@ -147,7 +157,52 @@ public class GraphicalInterface {
 		
 	}
 	
-	
-		
+	public void SendEmailListener() {
+		SendEmail.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(UserEmail.toString().trim().length() <=4 ||!UserEmail.getText().contains("@")||UserEmail.getText().equals("usertestees@gmail.com")) {
+					JOptionPane.showMessageDialog(frame, "Email inválido");
+				}else {
+					Properties props = new Properties();
+					props.put("mail.smtp.auth", "true");
+					props.put("mail.smtp.starttls.enable", "true");
+					props.put("mail.smtp.host", "smtp.gmail.com");
+					props.put("mail.smtp.port", "587");
+
+					Session session = Session.getInstance(props,
+					  new javax.mail.Authenticator() {
+						protected PasswordAuthentication getPasswordAuthentication() {
+							return new PasswordAuthentication(UserEmail.getText(), UserPass.getText());
+						}
+					  });
+
+					try {
+
+						Message message = new MimeMessage(session);
+						message.setFrom(new InternetAddress(UserEmail.getText()));
+						message.setRecipients(Message.RecipientType.TO,
+							InternetAddress.parse(adminMail));
+						message.setSubject("Testing Subject");
+						message.setText("Dear Mail Crawler,"
+							+ "\n\n No spam to my email, please!");
+
+						Transport.send(message);
+
+						System.out.println("Done");
+
+					} catch (MessagingException e1) {
+						throw new RuntimeException(e1);
+					}
+					  
+
+				   }
+				}
+				
+			
+		});	
+	}
+		private void OpenListeners() {
+			SendEmailListener();
+		}
 	
 }
